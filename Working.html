@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<head>
+<style type="text/css">
+
+/* Written by RHMc - November 2016    */
+/* JSoft LLC - Bert McLees, Principal */
+
+body {
+  font-family: times;
+}
+
+/* container */
+	.bodx {
+			margin: 1.5rem;
+			padding: 2rem;
+			background-color: whitesmoke;
+			border: 1px solid #ccc;
+			width: 440px;
+			height: 320px;
+			position: relative;
+			top: 25px;
+			left: 15px;
+	}
+
+/* paragraph style*/
+	.parax {
+			margin: 30px auto;
+			border: .1rem solid #888;
+			border-radius: .25rem;
+			width: 380px;
+			max-height: 18px;
+			font-weight: bold;
+			font-size: 95%;
+			line-height: 1.3rem;
+			color: black;
+			padding: .28rem .8rem;
+			overflow: hidden;
+			transition: max-height 1s;
+	}
+	
+/* topbar style*/
+	.topbar {
+			position: absolute;
+			top:   0px;
+			left:  50px;
+			margin: 20px auto 80px;
+			border: .1rem solid #888;
+			border-radius: .25rem;
+			width: 380px;
+			max-height: 18px;
+			font-weight: bold;
+			font-size: 95%;
+			line-height: 1.3rem;
+			color: black;
+			padding: .28rem .8rem;
+	}
+	
+/* topbar background */
+	.topbarbg {
+			background: lightgray;
+	}
+	
+/* first para position */
+	.wrapper1 {
+			position: relative;
+			top:   2px;
+			left:  1px;
+	}
+		
+/* paragraph background */
+	.paraxbg {
+			background: white;
+	}
+
+/* hide the five checkboxes */
+	.clobox, .showmore1, .showmore2, .showmore3, .showmore4 {
+	  display: none;
+	}
+
+/* "button" setup  - functionally these act as buttons, but they are checkboxes */
+	#firecloser, .firemore1, .firemore2, .firemore3, .firemore4 {
+	  color: darkblue;
+	  text-decoration: underline;
+	  cursor: pointer;
+	  display: block;
+	  font-weight: bold;
+	  font-size: 95%;
+	}
+	
+/* status line styling */
+
+	.bullets {
+		margin: 0;
+		padding: 0;
+		display: inline;
+	}
+	
+	li {
+		display: none;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+	
+		
+/* *******************  BEGIN HANDLERS ********************************* */
+
+/* set the 'all closed status' to start things off */
+input[type="checkbox"] ~ .topbar #statphrase::before {
+    content: 'all sections are closed';
+}
+
+/* if any section is open, fireup the close all reset button */
+input[type="checkbox"]:checked ~ .topbar #firecloser:before {
+	content: 'close all';
+}
+
+/* if any section is open, set the initial status msg portion */
+input[type="checkbox"]:checked ~ .topbar #statphrase:before {
+	content: 'section';
+}
+
+/* tack on the "s" if multiple sections are open - i.e. multiple checkboxes are lit*/
+input[type=checkbox]:checked ~ input[type=checkbox]:checked ~ .topbar #statphrase::after {
+  content: 's';
+}
+
+/* if any section is open, set the initial last msg part portion */
+input[type="checkbox"]:checked ~ .topbar #lastphrase::after {
+	content: 'is open';
+}
+
+/* if multiple checkboxes are lit, change the end of the status msg to plural */
+input[type=checkbox]:checked ~ input[type=checkbox]:checked ~ .topbar #lastphrase::after {
+  content: 'are open';
+}
+
+/* STATUS MESSAGE CONNECTOR HANDLER SECTION - this is where the ', and' are inserted */
+
+/* handle if 'a' and maybe at least one other */
+input[type="checkbox"].showmore1:checked ~ .topbar #flda {
+    display: inline;
+}
+
+input[type="checkbox"].showmore2:checked ~ .topbar #flda::after, input[type="checkbox"].showmore3:checked ~ .topbar #flda::after,
+input[type="checkbox"].showmore4:checked ~ .topbar #flda::after {
+    content: ', and ';
+}
+
+/* handle if 'b' and maybe at least one other */
+input[type="checkbox"].showmore2:checked ~ .topbar #fldb {
+    display: inline;
+}
+
+input[type="checkbox"].showmore3:checked ~ .topbar #fldb::after, input[type="checkbox"].showmore4:checked ~ .topbar #fldb::after {
+    content: ', and ';
+}
+
+/* handle if 'c' and maybe at least one other */
+input[type="checkbox"].showmore3:checked ~ .topbar #fldc {
+    display: inline;
+}
+
+input[type="checkbox"].showmore4:checked ~ .topbar #fldc::after {
+    content: ', and ';
+}
+
+/* handle if 'd' */
+input[type="checkbox"].showmore4:checked ~ .topbar #fldd {
+	display: inline;
+}
+
+/* CHECKBOX HANDLER SECTION */
+
+/*  *** Handler for checkbox a *** */
+
+	.showmore1 + .wrapper1 .firemore1:before {
+	  content: 'open';
+	}
+
+	.showmore1:checked + .wrapper1 .firemore1:before {
+	  content: 'close';
+	}
+
+	.showmore1:checked + .wrapper1 {
+	  max-height: 80px;
+	  transition: max-height 1s;
+	}
+
+/*  *** Handler for checkbox b *** */
+
+	.showmore2 + .wrapper2 .firemore2:before {
+	  content: 'open';
+	}
+
+	.showmore2:checked + .wrapper2 .firemore2:before {
+	  content: 'close';
+	}
+
+	.showmore2:checked + .wrapper2 {
+	  max-height: 80px;
+	  transition: max-height 1s;
+	}
+
+/* *** Handler for checkbox c *** */
+
+	.showmore3 + .wrapper3 .firemore3:before {
+	  content: 'open';
+	}
+
+	.showmore3:checked + .wrapper3 .firemore3:before {
+	  content: 'close';
+	}
+
+	.showmore3:checked + .wrapper3 {
+	  max-height: 80px;
+	  transition: max-height 1s;
+	}
+
+/* *** Handler for checkbox d *** */
+
+	.showmore4 + .wrapper4 .firemore4:before {
+	  content: 'open';
+	}
+
+	.showmore4:checked + .wrapper4 .firemore4:before {
+	  content: 'close';
+	}
+
+	.showmore4:checked + .wrapper4 {
+	  max-height: 80px;
+	  transition: max-height 1s;
+	}
+	
+</style>
+</head>
+<body class=bodx>
+ <form>
+	<!-- the paragraphs have a checkbox floated to the right.. the cb itself is hidden, but the lable is there and enabled -->
+	  <input type="checkbox" class="showmore1" id="post-1" />
+	  <p class="wrapper1 parax paraxbg">section
+		  <label style="float:right;" for="post-1" class="firemore1"></label>
+		  <span style="color:orange"><i>a</i></span>
+		  <span style="display:block;">section
+		  <span style="color:orange"><i>a</i></span>&nbsp;content</span>
+	  </p>
+	  
+	  <input type="checkbox" class="showmore2" id="post-2" />
+	  <p class="wrapper2 parax paraxbg">section
+		  <label style="float:right;" for="post-2" class="firemore2"></label>
+		  <span style="color:orange"><i>b</i></span>
+		  <span style="display:block;">section
+		  <span style="color:orange"><i>b</i></span>&nbsp;content</span>
+	  </p>
+	  
+	  <input type="checkbox" class="showmore3" id="post-3" />
+	  <p class="wrapper3 parax paraxbg">section
+		  <label style="float:right;" for="post-3" class="firemore3"></label>
+		  <span style="color:orange"><i>c</i></span>
+		  <span style="display:block;">section
+		  <span style="color:orange"><i>c</i></span>&nbsp;content</span>
+	  </p>
+	  
+	  <input type="checkbox" class="showmore4" id="post-4" />
+	  <p class="wrapper4 parax paraxbg">section
+		  <label style="float:right;" for="post-4" class="firemore4"></label>
+		  <span style="color:orange"><i>d</i></span>
+		  <span style="display:block;">section
+		  <span style="color:orange"><i>d</i></span>&nbsp;content</span>
+	  </p>
+	  
+	<!-- the reset button is hidden, but the label is there and enabled.. the reset is how all the checkboxes get returned to their "off" state -->
+	  <input type="reset" class="clobox" id="close-1" />
+	<!-- the top paragraph (topbar) is syntactically here at the bottom, but it is positioned to the top visually, and here it is really a div -->
+	  <div class="topbar topbarbg">
+			<label style="float:right;" for="close-1" id="firecloser"></label>
+			<span id="statphrase"></span>  
+            <ul class="bullets"> 
+				  <li id="flda">a</li>
+				  <li id="fldb">b</li>
+				  <li id="fldc">c</li>
+				  <li id="fldd">d</li>
+			</ul>
+			<span id="lastphrase"></span> 
+	  </div>
+	  
+  </form>
+</body>
+</html>
